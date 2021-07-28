@@ -12,9 +12,12 @@ import 'Counters/changeAddresss.dart';
 import 'Counters/totalMoney.dart';
 import 'Store/storehome.dart';
 
-Future<void> main() async
-{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  EcommerceApp.auth = FirebaseAuth.instance;
+  EcommerceApp.sharedPreferences = await SharedPreferences.getInstance();
+  EcommerceApp.firestore = Firestore.instance;
 
   runApp(MyApp());
 }
@@ -23,13 +26,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-            title: 'e-Shop',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              primaryColor: Colors.green,
-            ),
-            home: SplashScreen()
-    );
+        title: 'e-Shop',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primaryColor: Colors.green,
+        ),
+        home: SplashScreen());
   }
 }
 
@@ -38,17 +40,55 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
 
-class _SplashScreenState extends State<SplashScreen>
-{
+    displaySplash();
+  }
+
+  displaySplash() {
+    Timer(Duration(seconds: 5), () async {
+      if (await EcommerceApp.auth.currentUser() != null) {
+        Route route = MaterialPageRoute(builder: (_) => StoreHome());
+        Navigator.push(context, route);
+      } else {
+        Route route = MaterialPageRoute(builder: (_) => AuthenticScreen());
+        Navigator.push(context, route);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Center(
-        child: Text(
-            "Welcome to Flutter Firetore eCommerce Course by Coding Cafe.",
-          style: TextStyle(color: Colors.green, fontSize: 20.0),
-          textAlign: TextAlign.center,
+      child: Container(
+        decoration: new BoxDecoration(
+          gradient: new LinearGradient(
+            colors: [Colors.pink, Colors.lightGreenAccent],
+            begin: const FractionalOffset(0.0, 0.0),
+            end: const FractionalOffset(1.0, 0.0),
+            stops: [0.0, 1.0],
+            tileMode: TileMode.clamp,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('images/welcome.png'),
+              SizedBox(
+                height: 20.0,
+              ),
+              Text(
+                'bEST E SHOP app',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -6,11 +6,10 @@ import 'package:e_shop/Widgets/orderCard.dart';
 import 'package:e_shop/Models/address.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
-String getOrderId="";
+String getOrderId = "";
+
 class OrderDetails extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,42 +18,28 @@ class OrderDetails extends StatelessWidget {
   }
 }
 
-
-
 class StatusBanner extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-    );
+    return Container();
   }
 }
-
-
-
 
 class PaymentDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-    );
+    return Container();
   }
 }
-
-
 
 class ShippingDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-    );
+    return Column();
   }
 }
 
-
-
 class KeyText extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Text("");

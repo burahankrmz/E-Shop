@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "375315155076",
+    "project_id": "e-shop-182be",
+    "storage_bucket": "e-shop-182be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375315155076:android:8099b2aeedaf2383989ad1",
+        "android_client_info": {
+          "package_name": "com.burahan.eshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375315155076-0jm2oko52pk9mbj5pl0jukc7qss586e2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMn7_0uD04kLJ7Wzw2HUsO8N7ur7HYC3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375315155076-0jm2oko52pk9mbj5pl0jukc7qss586e2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

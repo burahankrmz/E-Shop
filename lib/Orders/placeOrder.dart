@@ -10,9 +10,6 @@ class PaymentPage extends StatefulWidget {
   _PaymentPageState createState() => _PaymentPageState();
 }
 
-
-
-
 class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
