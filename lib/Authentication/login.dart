@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Admin/adminLogin.dart';
 import 'package:e_shop/Widgets/customTextField.dart';
 import 'package:e_shop/DialogBox/errorDialog.dart';
@@ -88,7 +89,12 @@ class _LoginState extends State<Login> {
                     height: 10.0,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AdminSignInPage()));
+                    },
                     child: Text(
                       "i'm Admin",
                       style: TextStyle(
@@ -130,6 +136,40 @@ class _LoginState extends State<Login> {
               message: error.message.toString(),
             );
           });
+    });
+    if (firebaseUser != null) {
+      readData(firebaseUser).then((s) {
+        Navigator.pop(context);
+        Route route = MaterialPageRoute(builder: (c) => StoreHome());
+        Navigator.pushReplacement(context, route);
+      });
+    }
+  }
+
+  Future readData(FirebaseUser firebaseUser) async {
+    await Firestore.instance
+        .collection('Users')
+        .document(firebaseUser.uid)
+        .get()
+        .then((dataSnapshot) async {
+      await EcommerceApp.sharedPreferences
+          .setString('uid', dataSnapshot.data[EcommerceApp.userUID]);
+      await EcommerceApp.sharedPreferences.setString(
+          EcommerceApp.userEmail, dataSnapshot.data[EcommerceApp.userEmail]);
+      await EcommerceApp.sharedPreferences.setString(
+          EcommerceApp.userName, dataSnapshot.data[EcommerceApp.userName]);
+      await EcommerceApp.sharedPreferences.setString(EcommerceApp.userAvatarUrl,
+          dataSnapshot.data[EcommerceApp.userAvatarUrl]);
+
+      List<String> cartList;
+      dataSnapshot.data[EcommerceApp.userCartList] != null
+          ? cartList =
+              dataSnapshot.data[EcommerceApp.userCartList].cast<String>()
+          : cartList = null;
+      await EcommerceApp.sharedPreferences
+          .setStringList(EcommerceApp.userCartList, cartList);
+
+      print(cartList);
     });
   }
 }

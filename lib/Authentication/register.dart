@@ -218,6 +218,7 @@ class _RegisterState extends State<Register> {
       "email": firebaseUser.email,
       "name": _nameTextEditingController.text.trim(),
       "url": userImageUrl,
+      EcommerceApp.userCartList: ['garbageValue'],
     });
 
     await EcommerceApp.sharedPreferences.setString("uid", firebaseUser.uid);
