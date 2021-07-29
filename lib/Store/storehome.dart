@@ -24,7 +24,6 @@ class StoreHome extends StatefulWidget {
 }
 
 class _StoreHomeState extends State<StoreHome> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,62 @@ class _StoreHomeState extends State<StoreHome> {
               ),
             ),
           ),
+          title: Text(
+            'E-Shop',
+            style: TextStyle(
+                fontFamily: 'Signatra', fontSize: 40.0, color: Colors.white),
+          ),
+          centerTitle: true,
+          actions: [
+            Stack(
+              children: [
+                IconButton(
+                  alignment: Alignment.center,
+                  onPressed: () {
+                    Route route = MaterialPageRoute(builder: (c) => CartPage());
+                    Navigator.pushReplacement(context, route);
+                  },
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.pink,
+                  ),
+                ),
+                Positioned(
+                  child: Stack(
+                    children: [
+                      Icon(
+                        Icons.brightness_1,
+                        size: 20.0,
+                        color: Colors.pink,
+                      ),
+                      Positioned(
+                        top: 3.0,
+                        bottom: 4.0,
+                        child: Consumer<CartItemCounter>(
+                          builder: (context, counter, _) {
+                            return Text(
+                              (EcommerceApp.sharedPreferences
+                                          .getStringList(
+                                              EcommerceApp.userCartList)
+                                          .length -
+                                      1)
+                                  .toString(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
         ),
+        drawer: MyDrawer(),
       ),
     );
   }
