@@ -9,19 +9,37 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as ImD;
 
-
-class UploadPage extends StatefulWidget
-{
+class UploadPage extends StatefulWidget {
   @override
   _UploadPageState createState() => _UploadPageState();
 }
 
-class _UploadPageState extends State<UploadPage> with AutomaticKeepAliveClientMixin<UploadPage>
-{
+class _UploadPageState extends State<UploadPage>
+    with AutomaticKeepAliveClientMixin<UploadPage> {
   bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
-    return Text("");
+    return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+              colors: [Colors.pink, Colors.lightGreenAccent],
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp,
+            ),
+          ),
+        ),
+        title: Text(
+          'E-Shop',
+          style: TextStyle(
+              fontFamily: 'Signatra', fontSize: 40.0, color: Colors.white),
+        ),
+        centerTitle: true,
+      ),
+    );
   }
 }
