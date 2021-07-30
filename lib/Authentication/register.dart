@@ -85,7 +85,7 @@ class _RegisterState extends State<Register> {
                   CustomTextField(
                     controller: _cPasswordTextEditingController,
                     data: Icons.lock,
-                    hintText: 'Confirm PassWord',
+                    hintText: 'Confirm Password',
                     isObsecure: true,
                   ),
                   ElevatedButton(

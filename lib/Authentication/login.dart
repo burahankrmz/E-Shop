@@ -56,7 +56,7 @@ class _LoginState extends State<Login> {
                   CustomTextField(
                     controller: _passwordTextEditingController,
                     data: Icons.lock,
-                    hintText: 'PassWord',
+                    hintText: 'Password',
                     isObsecure: true,
                   ),
                   ElevatedButton(
