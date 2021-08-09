@@ -15,6 +15,7 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           flexibleSpace: Container(
             decoration: new BoxDecoration(
               gradient: new LinearGradient(

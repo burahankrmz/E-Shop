@@ -82,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: 20.0,
               ),
               Text(
-                'bEST E SHOP app',
+                'BEST E SHOP APP',
                 style: TextStyle(
                   color: Colors.white,
                 ),

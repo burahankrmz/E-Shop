@@ -145,26 +145,26 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
   }
 
   loginAdmin() async {
+    bool isThere = false;
+    String adminName = '';
     Firestore.instance.collection('admins').getDocuments().then((snapshot) {
       snapshot.documents.forEach((result) {
-        if (result.data['id'] != _adminIDTextEditingController.text.trim()) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Your id is not correct')));
-        } else if (result.data['password'] !=
-            _passwordTextEditingController.text.trim()) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Your password is not correct')));
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Welcome Dear Admin,' + result.data['name'])));
-          setState(() {
-            _adminIDTextEditingController.text = '';
-            _passwordTextEditingController.text = '';
-          });
-          Route route = MaterialPageRoute(builder: (_) => UploadPage());
-          Navigator.pushReplacement(context, route);
+        if (result.data['id'] == _adminIDTextEditingController.text.trim() &&
+            result.data['password'] ==
+                _passwordTextEditingController.text.trim()) {
+          isThere = true;
+          adminName = result.data['name'];
         }
       });
+      if (isThere == false) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Your Login Information is not correct')));
+      } else if (isThere == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Welcome Dear Admin,' + adminName)));
+        Route route = MaterialPageRoute(builder: (_) => UploadPage());
+        Navigator.pushReplacement(context, route);
+      }
     });
   }
 }

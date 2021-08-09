@@ -102,7 +102,7 @@ class _UploadPageState extends State<UploadPage>
             ),
             ElevatedButton(
               onPressed: () {
-                takeImage(context);
+                takeImage();
               },
               child: Text(
                 'Add New İtem',
@@ -118,45 +118,6 @@ class _UploadPageState extends State<UploadPage>
         ),
       ),
     );
-  }
-
-  takeImage(mContext) {
-    return showDialog(
-        context: mContext,
-        builder: (con) {
-          return SimpleDialog(
-            title: Text(
-              "Item Image",
-              style:
-                  TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-            ),
-            children: [
-              SimpleDialogOption(
-                child: Text("Capture with Camera",
-                    style: TextStyle(
-                      color: Colors.green,
-                    )),
-                onPressed: capturePhotoWithCamera,
-              ),
-              SimpleDialogOption(
-                child: Text("Select from Gallery",
-                    style: TextStyle(
-                      color: Colors.green,
-                    )),
-                onPressed: pickPhotoFromGallery,
-              ),
-              SimpleDialogOption(
-                child: Text("Cancel",
-                    style: TextStyle(
-                      color: Colors.green,
-                    )),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
   }
 
   capturePhotoWithCamera() async {
@@ -206,17 +167,14 @@ class _UploadPageState extends State<UploadPage>
               color: Colors.white, fontSize: 24.0, fontWeight: FontWeight.bold),
         ),
         actions: [
-          ElevatedButton(
+          IconButton(
             onPressed: () {
               print('click');
             },
-            style: ElevatedButton.styleFrom(primary: Colors.pink),
-            child: Text(
-              'Add',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold),
+            icon: Icon(
+              Icons.check,
+              color: Colors.pink,
+              size: 30.0,
             ),
           ),
         ],
@@ -332,11 +290,55 @@ class _UploadPageState extends State<UploadPage>
     );
   }
 
+  void takeImage() => showModalBottomSheet(
+        enableDrag: false,
+        isDismissible: false,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+        ),
+        barrierColor: Colors.orange.withOpacity(0.2),
+        context: context,
+        builder: (context) => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(
+                Icons.camera,
+                color: Colors.pink,
+              ),
+              title: Text('Capture With Camera'),
+              onTap: capturePhotoWithCamera,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.panorama,
+                color: Colors.pink,
+              ),
+              title: Text('Select from Gallery'),
+              onTap: pickPhotoFromGallery,
+            ),
+            ListTile(
+              leading: Icon(Icons.cancel),
+              title: Text('Cancel'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      );
+
   clearFormInfo() {
     file = null;
     _descriptionTextEditingController.clear();
     _titleTextEditingController.clear();
     _priceTextEditingController.clear();
     _shortInfoTextEditingController.clear();
+
+    Route route = MaterialPageRoute(builder: (c) => UploadPage());
+    Navigator.pushReplacement(context, route);
   }
 }
