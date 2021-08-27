@@ -213,7 +213,7 @@ class _RegisterState extends State<Register> {
   }
 
   Future saveUserInfoToFireStore(FirebaseUser firebaseUser) async {
-    Firestore.instance.collection('Users').document(firebaseUser.uid).setData({
+    Firestore.instance.collection('users').document(firebaseUser.uid).setData({
       "uid": firebaseUser.uid,
       "email": firebaseUser.email,
       "name": _nameTextEditingController.text.trim(),

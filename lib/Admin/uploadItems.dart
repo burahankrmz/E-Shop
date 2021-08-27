@@ -168,9 +168,7 @@ class _UploadPageState extends State<UploadPage>
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              print('click');
-            },
+            onPressed: uploading ? null : () => uploadItemAndSaveItemInfo(),
             icon: Icon(
               Icons.check,
               color: Colors.pink,
@@ -181,7 +179,7 @@ class _UploadPageState extends State<UploadPage>
       ),
       body: ListView(
         children: [
-          uploading ? linearProgress() : Text(''),
+          uploading ? circularProgress() : Text(''),
           Container(
             height: 230.0,
             width: MediaQuery.of(context).size.width * 0.8,
@@ -340,5 +338,51 @@ class _UploadPageState extends State<UploadPage>
 
     Route route = MaterialPageRoute(builder: (c) => UploadPage());
     Navigator.pushReplacement(context, route);
+  }
+
+  uploadItemAndSaveItemInfo() async {
+    setState(() {
+      uploading = true;
+    });
+
+    String imageDownloadUrl = await uploadItemImage(file);
+
+    saveItemInfo(imageDownloadUrl);
+  }
+
+  Future<String> uploadItemImage(File file) async {
+    final StorageReference storageReference =
+        FirebaseStorage.instance.ref().child('Items');
+    StorageUploadTask uploadTask =
+        storageReference.child('product_$productId.jpg').putFile(file);
+
+    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+
+    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+    return downloadUrl;
+  }
+
+  void saveItemInfo(String imageDownloadUrl) async {
+    final itemsRef = Firestore.instance.collection('items');
+    itemsRef.document(productId).setData({
+      'shortInfo': _shortInfoTextEditingController.text.trim(),
+      'longDescription': _descriptionTextEditingController.text.trim(),
+      'price': int.parse(_priceTextEditingController.text),
+      'publishedDate': DateTime.now(),
+      'status': 'available',
+      'thumbnailUrl': imageDownloadUrl,
+      'title': _titleTextEditingController.text.trim(),
+    });
+
+    setState(() {
+      file = null;
+      uploading = false;
+      productId = DateTime.now().millisecondsSinceEpoch.toString();
+      _descriptionTextEditingController.clear();
+      _titleTextEditingController.clear();
+      _shortInfoTextEditingController.clear();
+      _priceTextEditingController.clear();
+    });
   }
 }

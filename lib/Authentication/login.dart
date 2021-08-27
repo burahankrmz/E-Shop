@@ -148,7 +148,7 @@ class _LoginState extends State<Login> {
 
   Future readData(FirebaseUser firebaseUser) async {
     await Firestore.instance
-        .collection('Users')
+        .collection('users')
         .document(firebaseUser.uid)
         .get()
         .then((dataSnapshot) async {
