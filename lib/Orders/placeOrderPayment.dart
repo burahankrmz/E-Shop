@@ -47,15 +47,27 @@ class _PaymentPageState extends State<PaymentPage> {
               SizedBox(
                 height: 10.0,
               ),
-              FlatButton(
-                color: Colors.pinkAccent,
-                textColor: Colors.white,
-                padding: EdgeInsets.all(8.0),
-                splashColor: Colors.deepOrange,
+              ElevatedButton(
                 onPressed: () => addOrderDetails(),
                 child: Text(
-                  "Place Order",
-                  style: TextStyle(fontSize: 30.0),
+                  'Place My Order',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.pinkAccent,
+                  padding: EdgeInsets.all(8.0),
+                ),
+              ),
+              SizedBox(
+                height: 25.0,
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(fontSize: 25.0, color: Colors.white),
                 ),
               ),
             ],

@@ -201,12 +201,14 @@ class _AddressCardState extends State<AddressCard> {
                             ),
                             Text(widget.model.state),
                           ]),
-                          TableRow(children: [
-                            KeyText(
-                              msg: "Pin Code",
-                            ),
-                            Text(widget.model.pincode),
-                          ]),
+                          TableRow(
+                            children: [
+                              KeyText(
+                                msg: "Post Code",
+                              ),
+                              Text(widget.model.pincode),
+                            ],
+                          ),
                         ],
                       ),
                     ),

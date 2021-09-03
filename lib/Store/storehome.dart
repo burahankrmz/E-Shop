@@ -296,10 +296,6 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                   Flexible(
                     child: Container(),
                   ),
-                  Divider(
-                    thickness: 2,
-                    color: Colors.pink,
-                  ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: removeCartFunction == null
@@ -340,12 +336,13 @@ Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {
     width: width * .34,
     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     decoration: BoxDecoration(
-        color: primaryColor,
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              offset: Offset(0, 5), blurRadius: 10.0, color: Colors.grey[200]),
-        ]),
+      color: primaryColor,
+      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+            offset: Offset(0, 5), blurRadius: 10.0, color: Colors.grey[200]),
+      ],
+    ),
     child: ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(20.0)),
       child: Image.network(
